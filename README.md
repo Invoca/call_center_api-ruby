@@ -1,4 +1,4 @@
 call_center_api-ruby
 ====================
 
-Ruby wrapper for Call Center API with examples
+This is a Ruby wrapper for the Call Center API which is used to report completed order information from the Call Center back into the RingRevenue platform.  Reporting order information through this API allows advertisers to compensate publishers for sales that convert over the phone and if used in conjunction with Advertiser direct promotions and the RingRevenue Call ROI by Keyword search features, it will allow advertisers to report back revenue generated for each phone call so that search bids can be optimized based on that information.   The order amount can be fixed per sale, or a percentage, or a combination of both.
