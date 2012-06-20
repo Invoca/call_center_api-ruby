@@ -4,4 +4,4 @@ source "http://rubygems.org"
 
 gem 'rspec'
 
-gem "activeresource"
+gem 'webmock'

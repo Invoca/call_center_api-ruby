@@ -7,56 +7,53 @@ RingRevenue::CallCenter.config = {
   :API_PASSWORD   => 'sublime',
 }
 
+call_attrs = [
+  {
+    # Required parameter
+    :start_time_t => 1339289018,
 
-call = RingRevenue::CallCenter::Call.new(
-  # Required parameter
-  :start_time_t => 1338835119, 
+    # Optional parameters
+    :call_center_call_id => 1,
+    :duration_in_seconds => 200,
 
-  # Optional parameters
-  :call_center_call_id => 1,
-  :duration_in_seconds => 200,
+    # Optional Parameters for Tracking Sales
+    :reason_code => 'S',
+    :sale_currency => 'USD',
+    :sale_amount => 1.01
+  },
 
-  # Optional Parameters for Tracking Sales
-  :reason_code   => "S",
-  :sale_currency => "USD",
-  :sale_amount   => 1.01
-)
+  {
+    :start_time_t => 1339721018,
 
-response = call.save
+    :call_center_call_id => 1,
+    :duration_in_seconds => 200,
+    :reason_code   => "S",
+    :sale_currency => "USD",
+    :sale_amount   => 1.12,
+    :email_address => "john@doe.com",
+    :sku_list      => ['dvd', 'apple'],
+    :quantity_list => ['5', '10']
+  },
 
-if (200..299) === response.code.to_i
-  puts "Success!\n"
-else
- puts "Error (HTTP #{response.code}):\n #{response.body}\n"
+  {
+    :start_time_t => 1340153017,
+
+    :call_center_call_id => 1,
+    :duration_in_seconds => 200,
+    :reason_code => 'S',
+    :sale_currency => 'USD',
+    :sale_amount => 2.02,
+    :use_http_status => 1
+  }
+]
+
+call_attrs.each do |opts|
+  call = RingRevenue::CallCenter::Call.new(opts)
+  response = call.save
+
+  if (200..299) === response.code.to_i
+    puts "Success!\n\n"
+  else
+   puts "Error #{response.code}:\n#{response.body}\n"
+  end
 end
-
-
-
-
-# calls = [
-#   RingRevenue::CallCenter::Call.new(
-#     :start_time_t => 123, 
-#     :call_center_call_id => 1,
-#     :duration_in_seconds => 200
-#   ),
-#   RingRevenue::CallCenter::Call.new(
-#     :start_time_t => 123, 
-#     :call_center_call_id => 1,
-#     :duration_in_seconds => 200
-#   ),
-#   RingRevenue::CallCenter::Call.new(
-#     :start_time_t => 123,
-#     :call_center_call_id => 1,
-#     :duration_in_seconds => 200
-#   )
-# ]
-
-# calls.each do |call|
-#   response = call.save
-
-#   if (200..299) === response.code.to_i
-#     puts "Success!\n"
-#   else
-#    puts "Error #{response.code}: #{response.body}\n"
-#   end
-# end

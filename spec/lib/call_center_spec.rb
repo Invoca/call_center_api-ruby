@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'call_center'
 
 describe "Call Center" do
