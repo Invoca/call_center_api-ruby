@@ -145,7 +145,7 @@ describe "Call" do
       end
 
       it "outputs an error message" do
-        $stdout.should_receive(:write).with("Error 403:\n" + @err_msg + "\n")
+        $stdout.should_receive(:write).with("Error 403:\n#{@err_msg}\n")
         response = @invalid_call.save
 
         if (200..299) === response.code.to_i
