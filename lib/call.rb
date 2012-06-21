@@ -6,7 +6,7 @@ require File.expand_path('../http_helper', __FILE__)
 
 module RingRevenue
   module CallCenter
-    PORT = 3000
+    PORT = ENV['RR_API_HTTP_PORT'].to_i.nonzero? || 80
 
     class Call
       attr_accessor :params
