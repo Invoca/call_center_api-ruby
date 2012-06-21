@@ -78,8 +78,8 @@ describe "Call" do
             :sale_currency => "USD",
             :sale_amount   => '1.12',
             :email_address => "john@doe.com",
-            :sku_list      => ['dvd', 'apple'],
-            :quantity_list => ['1','2']
+            :sku_list      => ['DVD', 'cleaner'],
+            :quantity_list => ['2','1']
           },
           :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/x-www-form-urlencoded'}).
         to_return(:code => 200, :body => "", :headers => {})
@@ -93,8 +93,8 @@ describe "Call" do
           :sale_currency => "USD",
           :sale_amount   => 1.12,
           :email_address => "john@doe.com",
-          :sku_list      => ['dvd', 'apple'],
-          :quantity_list => ['1','2']
+          :sku_list      => ['DVD', 'cleaner'],
+          :quantity_list => ['2','1']
         })
         response = @call.save
         response.code.to_i.should == 200
@@ -115,12 +115,14 @@ describe "Call" do
         })
 
         @url_regex = /http:\/\/andrew%40ringrevenue.com:sublime@api[0|1].ringrevenue.com#{@api_url.path}/
-        @err_msg = %Q{Error 403:
+        @err_msg = %Q{
+          Error 403:
           <?xml version="1.0" encoding="UTF-8"?>
           <Error>
             <Class>RecordInvalid</Class>
             <Message>money is invalid ["Currency x is not supported"]</Message>
-          </Error>}
+          </Error>
+        }
         @invalid_stub = stub_request(:post, @url_regex).
           with(:body => {"start_time_t"=>"1339289018", "sale_currency"=>"x"},
                :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/x-www-form-urlencoded'}).

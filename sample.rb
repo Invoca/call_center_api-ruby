@@ -31,8 +31,8 @@ call_attrs = [
     :sale_currency => "USD",
     :sale_amount   => 1.12,
     :email_address => "john@doe.com",
-    :sku_list      => ['dvd', 'apple'],
-    :quantity_list => ['5', '10']
+    :sku_list      => ['DVD', 'cleaner'],
+    :quantity_list => ['2', '1']
   },
 
   {
