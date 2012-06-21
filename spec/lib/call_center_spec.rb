@@ -6,8 +6,8 @@ describe "Call Center" do
     RingRevenue::CallCenter.config = {
       :CALL_CENTER_ID => 1,
       :API_VERSION    => '2010-04-22',
-      :API_USERNAME   => 'andrew@ringrevenue.com',
-      :API_PASSWORD   => 'sublime',
+      :API_USERNAME   => 'user@ringrevenue.com',
+      :API_PASSWORD   => 'password',
     }
   end
 
