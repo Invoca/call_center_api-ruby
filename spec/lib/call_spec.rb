@@ -6,8 +6,8 @@ describe "Call" do
     RingRevenue::CallCenter.config = {
       :CALL_CENTER_ID => 1,
       :API_VERSION    => '2010-04-22',
-      :API_USERNAME   => 'andrew@ringrevenue.com',
-      :API_PASSWORD   => 'sublime',
+      :API_USERNAME   => 'user@ringrevenue.com',
+      :API_PASSWORD   => 'password',
     }
   end 
 
@@ -32,7 +32,7 @@ describe "Call" do
           :sale_amount   => 1.01
         })
 
-        @url_regex = /http:\/\/andrew%40ringrevenue.com:sublime@api[0|1].ringrevenue.com#{@api_url.path}/
+        @url_regex = /http:\/\/user%40ringrevenue.com:password@api[0|1].ringrevenue.com#{@api_url.path}/
         @stub = stub_request(:post, @url_regex).
           with(:body => {
             "sale_amount"=>"1.01", 
@@ -114,7 +114,7 @@ describe "Call" do
           :sale_currency => 'x',
         })
 
-        @url_regex = /http:\/\/andrew%40ringrevenue.com:sublime@api[0|1].ringrevenue.com#{@api_url.path}/
+        @url_regex = /http:\/\/user%40ringrevenue.com:password@api[0|1].ringrevenue.com#{@api_url.path}/
         @err_msg = %Q{
           Error 403:
           <?xml version="1.0" encoding="UTF-8"?>
