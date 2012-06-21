@@ -13,7 +13,7 @@ call_attrs = [
     :start_time_t => 1339289018,
 
     # Optional parameters
-    :call_center_call_id => 1,
+    :call_center_call_id => 91234567,
     :duration_in_seconds => 200,
 
     # Optional Parameters for Tracking Sales
@@ -25,7 +25,7 @@ call_attrs = [
   {
     :start_time_t => 1339721018,
 
-    :call_center_call_id => 1,
+    :call_center_call_id => 91234568,
     :duration_in_seconds => 200,
     :reason_code   => "S",
     :sale_currency => "USD",
@@ -38,7 +38,7 @@ call_attrs = [
   {
     :start_time_t => 1340153017,
 
-    :call_center_call_id => 1,
+    :call_center_call_id => 91234569,
     :duration_in_seconds => 200,
     :reason_code => 'S',
     :sale_currency => 'USD',
