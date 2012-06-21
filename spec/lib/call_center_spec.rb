@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'call_center'
 
 describe "Call Center" do
-  before(:each) do
+  before :each do
     RingRevenue::CallCenter.config = {
       :CALL_CENTER_ID => 1,
       :API_VERSION    => '2010-04-22',
