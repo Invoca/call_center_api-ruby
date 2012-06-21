@@ -1,6 +1,4 @@
 require 'spec_helper'
-require 'stringio'
-
 require 'call'
 
 describe "Call" do
