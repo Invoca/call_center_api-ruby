@@ -43,17 +43,18 @@ call_attrs = [
     :reason_code => 'S',
     :sale_currency => 'USD',
     :sale_amount => 2.02,
-    :use_http_status => 1
+    :called_phone_number => '+1 8888665440',
+    :calling_phone_number => '+1 8056801218'
   }
 ]
 
-call_attrs.each do |opts|
-  call = RingRevenue::CallCenter::Call.new(opts)
+call_attrs.each do |attrs|
+  call = RingRevenue::CallCenter::Call.new(attrs)
   response = call.save
 
   if (200..299) === response.code.to_i
-    puts "Success!\n\n"
+    puts "Success on call #{call.params[:call_center_call_id]}!\n\n"
   else
-   puts "Error #{response.code}:\n#{response.body}\n"
+    puts "Error on call #{call.params[:call_center_call_id]} #{response.code}:\n#{response.body}\n"
   end
 end
