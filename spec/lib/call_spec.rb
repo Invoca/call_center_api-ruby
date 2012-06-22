@@ -23,14 +23,14 @@ describe "Call" do
 
         @api_url = URI.parse RingRevenue::CallCenter.get_api_url
 
-        @call = RingRevenue::CallCenter::Call.new({
+        @call = RingRevenue::CallCenter::Call.new(
           :start_time_t => 1339289018,
           :call_center_call_id => 1,
           :duration_in_seconds => 200,
           :reason_code   => "S",
           :sale_currency => "USD",
           :sale_amount   => 1.01
-        })
+        )
 
         @url_regex = /http:\/\/user%40ringrevenue.com:password@api[0|1].ringrevenue.com#{@api_url.path}/
         @stub = stub_request(:post, @url_regex).
@@ -43,7 +43,7 @@ describe "Call" do
             "start_time_t"=>"1339289018"
             },
             :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/x-www-form-urlencoded'}).
-          to_return(:code => 200, :body => "", :headers => {})
+          to_return(:code => 200, :body => " ", :headers => {})
       end
 
       it "makes a request to the api url" do
@@ -51,20 +51,10 @@ describe "Call" do
         @stub.should have_been_requested
       end
 
-      it "returns a 200 status code" do
+      it "returns a 200 status code and empty body" do
         response = @call.save
         response.code.to_i.should == 200
-      end
-
-      it "outputs a success message" do
-        $stdout.should_receive(:write).with("Success!\n\n")
-        response = @call.save
-
-        if (200..299) === response.code.to_i
-          puts "Success!\n\n"
-        else
-         puts "Error #{response.code}:\n#{response.body}\n"
-        end
+        response.body.should == " "
       end
 
       it "accepts array parameters do" do
@@ -84,7 +74,7 @@ describe "Call" do
           :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/x-www-form-urlencoded'}).
         to_return(:code => 200, :body => "", :headers => {})
 
-        @call = RingRevenue::CallCenter::Call.new({
+        @call = RingRevenue::CallCenter::Call.new(
           :start_time_t => 1339721018,
 
           :call_center_call_id => 1,
@@ -95,8 +85,9 @@ describe "Call" do
           :email_address => "john@doe.com",
           :sku_list      => ['DVD', 'cleaner'],
           :quantity_list => ['2','1']
-        })
+        )
         response = @call.save
+        @stub.should have_been_requested
         response.code.to_i.should == 200
       end
 
@@ -109,10 +100,10 @@ describe "Call" do
 
         @api_url = URI.parse RingRevenue::CallCenter.get_api_url
 
-        @invalid_call = RingRevenue::CallCenter::Call.new({
+        @invalid_call = RingRevenue::CallCenter::Call.new(
           :start_time_t => 1339289018,
-          :sale_currency => 'x',
-        })
+          :sale_currency => 'x'
+        )
 
         @url_regex = /http:\/\/user%40ringrevenue.com:password@api[0|1].ringrevenue.com#{@api_url.path}/
         @err_msg = %Q{
@@ -134,25 +125,10 @@ describe "Call" do
         @invalid_stub.should have_been_requested
       end
 
-      it "returns a 403 status code for bad parameters" do
+      it "returns a 403 status code and an error message in the body" do
         response = @invalid_call.save
         response.code.to_i.should == 403
-      end
-
-      it "returns the error message in the body" do
-        response = @invalid_call.save
         response.body.should == @err_msg
-      end
-
-      it "outputs an error message" do
-        $stdout.should_receive(:write).with("Error 403:\n#{@err_msg}\n")
-        response = @invalid_call.save
-
-        if (200..299) === response.code.to_i
-          puts "Success!\n\n"
-        else
-         puts "Error #{response.code}:\n#{response.body}\n"
-        end
       end
 
     end
