@@ -1,9 +1,9 @@
 require 'lib/call_center'
 
-RingRevenue::CallCenter.config = {
+Invoca::CallCenter.config = {
   :CALL_CENTER_ID => 1,
   :API_VERSION    => '2010-04-22',
-  :API_USERNAME   => 'username@ringrevenue.com',
+  :API_USERNAME   => 'username@invoca.com',
   :API_PASSWORD   => 'password',
 }
 
@@ -49,7 +49,7 @@ call_attrs = [
 ]
 
 call_attrs.each do |attrs|
-  call = RingRevenue::CallCenter::Call.new(attrs)
+  call = Invoca::CallCenter::Call.new(attrs)
   response = call.save
 
   if (200..299) === response.code.to_i

@@ -3,16 +3,16 @@ require 'call'
 
 describe "Call" do
   before(:all) do
-    RingRevenue::CallCenter.config = {
+    Invoca::CallCenter.config = {
       :CALL_CENTER_ID => 1,
       :API_VERSION    => '2010-04-22',
-      :API_USERNAME   => 'user@ringrevenue.com',
+      :API_USERNAME   => 'user@invoca.com',
       :API_PASSWORD   => 'password',
     }
   end 
 
   it "should raise an error if a required option is not present" do
-    lambda { RingRevenue::CallCenter::Call.new }.should raise_error(ArgumentError)
+    lambda { Invoca::CallCenter::Call.new }.should raise_error(ArgumentError)
   end
 
   describe "server stubs" do
@@ -21,9 +21,9 @@ describe "Call" do
       before :each do
         WebMock.reset!
 
-        @api_url = URI.parse RingRevenue::CallCenter.get_api_url
+        @api_url = URI.parse Invoca::CallCenter.get_api_url
 
-        @call = RingRevenue::CallCenter::Call.new(
+        @call = Invoca::CallCenter::Call.new(
           :start_time_t => 1339289018,
           :call_center_call_id => 1,
           :duration_in_seconds => 200,
@@ -32,7 +32,7 @@ describe "Call" do
           :sale_amount   => 1.01
         )
 
-        @url_regex = /http:\/\/user%40ringrevenue.com:password@api[0|1].ringrevenue.com#{@api_url.path}/
+        @url_regex = /http:\/\/user%40invoca.com:password@api[0|1].invoca.com#{@api_url.path}/
         @stub = stub_request(:post, @url_regex).
           with(:body => {
             "sale_amount"=>"1.01", 
@@ -74,7 +74,7 @@ describe "Call" do
           :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/x-www-form-urlencoded'}).
         to_return(:code => 200, :body => "", :headers => {})
 
-        @call = RingRevenue::CallCenter::Call.new(
+        @call = Invoca::CallCenter::Call.new(
           :start_time_t => 1339721018,
 
           :call_center_call_id => 1,
@@ -98,14 +98,14 @@ describe "Call" do
       before :each do
         WebMock.reset!
 
-        @api_url = URI.parse RingRevenue::CallCenter.get_api_url
+        @api_url = URI.parse Invoca::CallCenter.get_api_url
 
-        @invalid_call = RingRevenue::CallCenter::Call.new(
+        @invalid_call = Invoca::CallCenter::Call.new(
           :start_time_t => 1339289018,
           :sale_currency => 'x'
         )
 
-        @url_regex = /http:\/\/user%40ringrevenue.com:password@api[0|1].ringrevenue.com#{@api_url.path}/
+        @url_regex = /http:\/\/user%40invoca.com:password@api[0|1].invoca.com#{@api_url.path}/
         @err_msg = %Q{
           Error 403:
           <?xml version="1.0" encoding="UTF-8"?>

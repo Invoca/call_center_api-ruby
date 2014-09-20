@@ -4,7 +4,7 @@ require File.expand_path('../http_helper', __FILE__)
 
 
 
-module RingRevenue
+module Invoca
   module CallCenter
     PORT = ENV['RR_API_HTTP_PORT'].to_i.nonzero? || 80
 
@@ -19,7 +19,7 @@ module RingRevenue
 
       def initialize_request(uri)
         # Set body data and authenticate the request
-        config = RingRevenue::CallCenter.config
+        config = Invoca::CallCenter.config
         request = Net::HTTP::Post.new(uri.request_uri)
         HTTPHelper.set_form_data(request, @params)
 
@@ -29,7 +29,7 @@ module RingRevenue
 
       def save
         # Configure URI / HTTP objects
-        api_url = RingRevenue::CallCenter.get_api_url
+        api_url = Invoca::CallCenter.get_api_url
         uri = URI.parse(api_url)
         
         # Send the request and return the response
